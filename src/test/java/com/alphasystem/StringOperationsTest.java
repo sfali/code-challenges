@@ -17,6 +17,8 @@ class StringOperationsTest {
     void nonEmptyResultTest() {
         assertEquals("baadac", findShortestSubstring("aabaacaabaadacaa", DEFAULT_CHARS));
         assertEquals("bacacaaad", findShortestSubstring("dabaaaabacacaaadaaaa", DEFAULT_CHARS));
+        assertEquals("cdb", findShortestSubstring("aabaacaabaadacdbaa", DEFAULT_CHARS));
+        assertEquals("cdb", findShortestSubstring("aabaacaabaadacdb", DEFAULT_CHARS));
     }
 
     @Test
