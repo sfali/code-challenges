@@ -8,15 +8,16 @@ import java.util.stream.Collectors;
 
 public final class StringOperations {
 
-    private static final int VALUE_OF_A = 'a';
-
-    public static String findShortestSubstring(String source, String chars) {
-        return findShortestSubstring(source.toLowerCase(), chars.chars().mapToObj(c -> (char) c).toArray(Character[]::new));
-    }
-
-    public static String findShortestSubstring(String source, Character[] chars) {
-        final int sourceLength = source.length();
-        final int targetLength = chars.length;
+    /**
+     * Given a string and list of distinct characters find a shortest substring containing each character at least once.
+     *
+     * @param s      Given string
+     * @param source list of given characters
+     * @return Shortest substring satisfying the condition
+     */
+    public static String findShortestSubstring(String s, Character[] source) {
+        final int sourceLength = s.length();
+        final int targetLength = source.length;
         if (sourceLength < targetLength) {
             return null;
         }
@@ -25,9 +26,9 @@ public final class StringOperations {
         int second = -1;
 
         Map<Character, Boolean> found = new HashMap<>();
-        Map<Character, Boolean> inputs = Arrays.stream(chars).collect(Collectors.toMap(Function.identity(), c -> true));
+        Map<Character, Boolean> inputs = Arrays.stream(source).collect(Collectors.toMap(Function.identity(), c -> true));
 
-        final char[] charArray = source.toCharArray();
+        final char[] charArray = s.toCharArray();
 
         int currentIndex = 0;
         while (currentIndex < sourceLength) {
@@ -36,7 +37,7 @@ public final class StringOperations {
             if (b != null && b) {
                 found.put(a, true);
                 if (found.size() == targetLength) {
-                    String temp = source.substring(first, currentIndex + 1);
+                    String temp = s.substring(first, currentIndex + 1);
                     if (result == null || temp.length() < result.length()) {
                         result = temp;
                     }
