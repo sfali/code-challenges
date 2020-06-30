@@ -48,13 +48,13 @@ public final class StringPermutation {
         }
     }
 
-    public static List<String> permutations(String s) {
+    public static List<String> allCombinations(String s) {
         if (s == null || s.isEmpty()) {
             return null;
         }
 
         List<String> results = new ArrayList<>();
-        permutations(toFrequencyPairs(s), new char[s.length()], 0, results);
+        allCombinations(toFrequencyPairs(s), new char[s.length()], 0, results);
         return results;
     }
 
@@ -75,10 +75,10 @@ public final class StringPermutation {
         return Arrays.stream(frequencyArray).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
-    private static void permutations(List<Pair> pairList,
-                                     char[] results,
-                                     int level,
-                                     List<String> permutations) {
+    private static void allCombinations(List<Pair> pairList,
+                                        char[] results,
+                                        int level,
+                                        List<String> permutations) {
         if (level == results.length) {
             // base case
             permutations.add(new String(results));
@@ -92,7 +92,7 @@ public final class StringPermutation {
             }
             results[level] = pair.getCharacter();
             pairList.set(i, pair.decrementCount());
-            permutations(pairList, results, level + 1, permutations);
+            allCombinations(pairList, results, level + 1, permutations);
             pairList.set(i, pair);
         }
     }
