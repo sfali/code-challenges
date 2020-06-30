@@ -8,11 +8,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
-public class StringPermutationTest {
+public class StringCombinationTest {
 
     @Test
     void stringWithNoRepeat() {
-        final List<String> permutations = StringPermutation.allCombinations("abc");
+        final List<String> permutations = StringCombination.allCombinations("abc");
         assertEquals(6, permutations.size());
         List<String> expected = Arrays.asList("abc", "acb", "bac", "bca", "cab", "cba");
         assertIterableEquals(expected, permutations);
@@ -20,7 +20,7 @@ public class StringPermutationTest {
 
     @Test
     void stringWithRepeat() {
-        final List<String> permutations = StringPermutation.allCombinations("baca");
+        final List<String> permutations = StringCombination.allCombinations("baca");
         assertEquals(12, permutations.size());
         List<String> expected = Arrays.asList("aabc", "aacb", "abac", "abca", "acab", "acba", "baac", "baca", "bcaa",
                 "caab", "caba", "cbaa");
