@@ -48,13 +48,29 @@ public final class StringCombination {
         }
     }
 
-    public static List<String> allCombinations(String s) {
+    /**
+     * Returns all possible combination from the given input string.
+     *
+     * @param s input string
+     * @return all possible permutations
+     */
+    public static List<String> permutations(String s) {
         if (s == null || s.isEmpty()) {
             return null;
         }
 
         List<String> results = new ArrayList<>();
-        allCombinations(toFrequencyPairs(s), new char[s.length()], 0, results);
+        permutations(toFrequencyPairs(s), new char[s.length()], 0, results);
+        return results;
+    }
+
+    public static List<String> combinations(String s) {
+        if (s == null || s.isEmpty()) {
+            return null;
+        }
+
+        List<String> results = new ArrayList<>();
+        combinations(toFrequencyPairs(s), new char[s.length()], 0, 0, results);
         return results;
     }
 
@@ -75,13 +91,13 @@ public final class StringCombination {
         return Arrays.stream(frequencyArray).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
-    private static void allCombinations(List<Pair> pairList,
-                                        char[] results,
-                                        int level,
-                                        List<String> permutations) {
-        if (level == results.length) {
+    private static void permutations(List<Pair> pairList,
+                                     char[] data,
+                                     int level,
+                                     List<String> results) {
+        if (level == data.length) {
             // base case
-            permutations.add(new String(results));
+            results.add(new String(data));
             return;
         }
 
@@ -90,9 +106,28 @@ public final class StringCombination {
             if (pair.getCount() == 0) {
                 continue;
             }
-            results[level] = pair.getCharacter();
+            data[level] = pair.getCharacter();
             pairList.set(i, pair.decrementCount());
-            allCombinations(pairList, results, level + 1, permutations);
+            permutations(pairList, data, level + 1, results);
+            pairList.set(i, pair);
+        }
+    }
+
+
+    private static void combinations(List<Pair> pairList,
+                                     char[] data,
+                                     int pos,
+                                     int len,
+                                     List<String> results) {
+        results.add(new String(data, 0, len));
+        for (int i = pos; i < pairList.size(); i++) {
+            final Pair pair = pairList.get(i);
+            if (pair.getCount() == 0) {
+                continue;
+            }
+            data[len] = pair.getCharacter();
+            pairList.set(i, pair.decrementCount());
+            combinations(pairList, data, i, len + 1, results);
             pairList.set(i, pair);
         }
     }

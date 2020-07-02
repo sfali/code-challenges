@@ -12,7 +12,7 @@ public class StringCombinationTest {
 
     @Test
     void stringWithNoRepeat() {
-        final List<String> permutations = StringCombination.allCombinations("abc");
+        final List<String> permutations = StringCombination.permutations("abc");
         assertEquals(6, permutations.size());
         List<String> expected = Arrays.asList("abc", "acb", "bac", "bca", "cab", "cba");
         assertIterableEquals(expected, permutations);
@@ -20,7 +20,7 @@ public class StringCombinationTest {
 
     @Test
     void stringWithRepeat() {
-        final List<String> permutations = StringCombination.allCombinations("baca");
+        final List<String> permutations = StringCombination.permutations("baca");
         assertEquals(12, permutations.size());
         List<String> expected = Arrays.asList("aabc", "aacb", "abac", "abca", "acab", "acba", "baac", "baca", "bcaa",
                 "caab", "caba", "cbaa");
